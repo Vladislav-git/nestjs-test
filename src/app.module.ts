@@ -5,8 +5,15 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { join } from 'path';
-import { PrismaService } from './prisma.service';
 import { CustomerModule } from './customer/customer.module';
+import { AuthModule } from './auth/auth.module';
+import { PrismaService } from './prisma/prisma.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { EmailModule } from './email/email.module';
+import { EmailConfirmationService } from './email-confirmation/email-confirmation.service';
+import { EmailConfirmationController } from './email-confirmation/email-confirmation.controller';
+import { JwtModule } from '@nestjs/jwt';
+import { EmailConfirmationModule } from './email-confirmation/email-confirmation.module';
 
 @Module({
   imports: [
@@ -21,8 +28,12 @@ import { CustomerModule } from './customer/customer.module';
       playground: true,
       introspection: true, // TODO update this so that it's off in production;
     }),
+    AuthModule,
+    PrismaModule,
+    EmailModule,
+    EmailConfirmationModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService],
 })
 export class AppModule {}

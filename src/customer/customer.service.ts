@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { GetCustomerInput } from './dto/customer.input';
 
 @Injectable()
@@ -14,5 +14,8 @@ export class CustomerService {
       cursor,
       where,
     });
+  }
+  async findAllCustomers() {
+    return this.prisma.customer.findMany();
   }
 }
